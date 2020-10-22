@@ -41,8 +41,6 @@
                 let y = Math.random() * diameter + 1;
                 // console.log(x > size || x < 0 || y > size || y < 0 ? "failed" : "passed");
                 points.push({x: x, y: y});
-                ctx.fillStyle = "rgb(255, 255, 0)";
-                ctx.fillRect(x, y, 5, 5);
             }
 
             let inside = 0;
@@ -54,11 +52,11 @@
                 let rise = diameter - point.y;
                 if((Math.sqrt(run*run + rise*rise) <= diameter)) {
                     ctx.fillStyle = "rgb(0, 255, 0)";
-                    ctx.fillRect(point.x, point.y, 5, 5);
+                    ctx.fillRect(point.x, point.y, 2, 2);
                     inside++;
                 } else {
                     ctx.fillStyle = "rgb(255, 0, 0)";
-                    ctx.fillRect(point.x, point.y, 5, 5);
+                    ctx.fillRect(point.x, point.y, 2, 2);
                     outside++;
                 }
             });
