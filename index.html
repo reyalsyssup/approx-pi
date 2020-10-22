@@ -6,7 +6,7 @@
     <title>Approximation of pi</title>
 </head>
 <body>
-    <h1></h1>
+    <h2></h2>
     <canvas id="canvas" width="150" height="150"></canvas>
 </body>
     <script>
@@ -14,6 +14,9 @@
         let ctx = canvas.getContext("2d");
         // Keep track of the points' positions
         let points = [];
+        // Count of how many times pi was calculated to find average
+        let piCount = 0;
+        let piAdded = 0;
 
         // Outer Square
         let size = 500;
@@ -62,7 +65,10 @@
             });
             
             let approxPi = inside/outside;
-            document.querySelector("h1").textContent = `Inside circle: ${inside} Outside: ${outside} Approx Pi: ${approxPi}`;
+            piCount++;
+            piAdded += approxPi;
+            let average = piAdded / piCount;
+            document.querySelector("h2").textContent = `Inside circle: ${inside} Outside: ${outside} Approx Pi: ${approxPi} Average: ${average}`;
         }
 
         // calcPi();
