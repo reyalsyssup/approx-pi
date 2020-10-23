@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approximation of pi</title>
+</head>
+<body>
+    <h2></h2>
+    <a style="display: block;" href="/index.html">Original</a>
+    <canvas id="canvas" width="150" height="150"></canvas>
+</body>
+    <script>
+        let canvas = document.querySelector("#canvas");
+        let ctx = canvas.getContext("2d");
+        // Keep track of the points' positions
+        let points = [];
+        // Count of how many times pi was calculated to find average
+        let piCount = 0;
+        let piAdded = 0;
+
+        // Outer Square
+        let size = 500;
+        let diameter = size/2;
+        canvas.setAttribute("width", `${size}`);
+        canvas.setAttribute("height", `${size}`);
+        
+
+        const calcPi = () => {
+            points = [];
+            ctx.strokeRect(0, 0, size, size);
+            ctx.fillStyle = "rgb(255, 255, 255)";
+            ctx.fillRect(1, 1, size-2, size-2);
+            ctx.beginPath();
+            // outer black ring
+            ctx.fillStyle = "rgb(0, 0, 0)";
+            ctx.arc(diameter, diameter, diameter, 0, Math.PI * 2, true);
+            // stroke makes a border unlike fill() which fills it
+            ctx.fill();
+            
+            // Generate 100 random points in the square
+            for(let i = 0; i < size*20; i++) {
+                // Add 76 not 75 because the range is 0 - 74 so add 1 is 1 - 75
+                let x = Math.random() * diameter*2 + 1;
+                let y = Math.random() * diameter*2 + 1;
+                // console.log(x > size || x < 0 || y > size || y < 0 ? "failed" : "passed");
+                points.push({x: x, y: y});
+            }
+
+            let inside = 0;
+            let outside = 0;
+
+            // Count how many points are in the square
+            // i have no idea why this works for a full circle but it does lol
+            points.forEach(point => {
+                let run = point.x - diameter;
+                let rise = diameter - point.y;
+                if((Math.sqrt(run*run + rise*rise) <= diameter)) {
+                    ctx.fillStyle = "rgb(0, 255, 0)";
+                    ctx.fillRect(point.x, point.y, 2, 2);
+                    inside++;
+                } else {
+                    ctx.fillStyle = "rgb(255, 0, 0)";
+                    ctx.fillRect(point.x, point.y, 2, 2);
+                    outside++;
+                }
+            });
+            
+            let approxPi = inside/outside;
+            piCount++;
+            piAdded += approxPi;
+            let average = piAdded / piCount;
+            document.querySelector("h2").textContent = `Inside circle: ${inside} Outside: ${outside} Approx Pi: ${approxPi} Average: ${average}`;
+        }
+
+        // calcPi();
+        setInterval(calcPi, 250)
+    </script>
+</html>
