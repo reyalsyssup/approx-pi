@@ -65,7 +65,7 @@
                 }
             });
             
-            let approxPi = inside/outside;
+            let approxPi = (inside/points.length)*4;
             piCount++;
             piAdded += approxPi;
             let average = piAdded / piCount;
@@ -73,6 +73,6 @@
         }
 
         // calcPi();
-        setInterval(calcPi, 250)
+        setInterval(calcPi)
     </script>
 </html>
