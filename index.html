@@ -7,7 +7,7 @@
 </head>
 <body>
     <h2></h2>
-    <a style="display: block;" href="/approx-pi/fullCircle.html">Full Circle</a>
+    <a style="display: block;" href="/approx-pi/">Quarter Circle</a>
     <canvas id="canvas" width="150" height="150"></canvas>
 </body>
     <script>
@@ -38,11 +38,11 @@
             // stroke makes a border unlike fill() which fills it
             ctx.fill();
             
-            // Generate 100 random points in the top right corner of the square
-            for(let i = 0; i < size*10; i++) {
+            // Generate 100 random points in the square
+            for(let i = 0; i < size*20; i++) {
                 // Add 76 not 75 because the range is 0 - 74 so add 1 is 1 - 75
-                let x = Math.random() * diameter + diameter + 1;
-                let y = Math.random() * diameter + 1;
+                let x = Math.random() * diameter*2 + 1;
+                let y = Math.random() * diameter*2 + 1;
                 // console.log(x > size || x < 0 || y > size || y < 0 ? "failed" : "passed");
                 points.push({x: x, y: y});
             }
@@ -51,6 +51,7 @@
             let outside = 0;
 
             // Count how many points are in the square
+            // i have vague idea as to why this works for a full circle but it does lol
             points.forEach(point => {
                 let run = point.x - diameter;
                 let rise = diameter - point.y;
